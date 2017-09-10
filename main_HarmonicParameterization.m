@@ -1,15 +1,12 @@
 clear all; clc; close all;
 addpath(genpath('.'));
 
-filename = 'HumanBrain';
+filename = 'CYHo';
 
 
 %%
-fprintf('Read OBJ file ...                       ');tic
-[F, V, extra] = ReadOBJ([filename '.obj']);
-if isfield(extra, 'vertex_color')
-    Vrgb = extra.vertex_color;
-end
+fprintf('Read mesh file ...                      ');tic
+load(filename);
 toc
 
 fprintf('Plot the mesh model ...                 ');tic
