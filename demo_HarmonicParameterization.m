@@ -1,22 +1,29 @@
-clear all; clc; close all;
+clear;clc;close all;
 addpath(genpath('.'));
 
-filename = 'CYHo';
-
-
-%%
 fprintf('Read mesh file ...                      ');tic
-load(filename);
+[filename, pathname] = uigetfile({'*.mat','Supported mesh file'}, 'Pick a mesh file (*.mat)');
+load( [pathname filename] );
 toc
 
 fprintf('Plot the mesh model ...                 ');tic
-figure
+h = figure;
 if exist('Vrgb', 'var')
     PlotMesh(F, V, Vrgb);
 else
     PlotMesh(F, V);
 end
 toc
+fprintf('Close the figure to continue ... \n');
+waitfor(h);
+
+fprintf('Plot the sparsity of the graph ...      ');tic
+[~, A] = CotangentLaplacian(F, V);
+h = figure;
+spy(A);
+toc
+fprintf('Close the figure to continue ... \n');
+waitfor(h);
 
 fprintf('Compute a harmonic parameterization ... ');tic
 uv = HarmonicMapping(F, V); 
