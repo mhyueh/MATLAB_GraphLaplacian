@@ -1,8 +1,9 @@
 clear;clc;close all;
 addpath(genpath('.'));
 
-fprintf('Read mesh file ...                      ');tic
+fprintf('Read mesh file ...                      ');
 [filename, pathname] = uigetfile({'*.mat','Supported mesh file'}, 'Pick a mesh file (*.mat)');
+tic
 load( [pathname filename] );
 toc
 
